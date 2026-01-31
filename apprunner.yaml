@@ -1,0 +1,19 @@
+version: 1.0
+runtime: corretto11
+build:
+  commands:
+    pre-build:
+      - echo "Java version:" && java -version
+    build:
+      - mvn clean package -DskipTests
+run:
+  command: java -jar target/cloud-101-demo-1.0.0.jar
+  network:
+    port: 8080
+  env:
+    - name: CLOUD_PROVIDER
+      value: "AWS App Runner"
+    - name: PORT
+      value: "8080"
+    - name: JAVA_TOOL_OPTIONS
+      value: "-Xmx256m -Xms128m"
